@@ -1,0 +1,3 @@
+SHELL=/bin/sh
+
+* * * * * php /var/www/pelican/artisan schedule:run >> /dev/null 2>&1
