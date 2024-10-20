@@ -1,4 +1,12 @@
 FROM ubuntu:24.04
+# Configure the release to install, defaulting to latest
+ARG release=latest
+
+LABEL org.opencontainers.image.title="Pelican Panel"
+LABEL org.opencontainers.image.authors="contact@ported.pw"
+LABEL org.opencontainers.image.source="https://github.com/ported-pw/pelican-panel-docker"
+LABEL org.opencontainers.image.version="${release}"
+LABEL org.opencontainers.image.licenses="AGPLv3"
 
 RUN apt-get update && apt-get install -y \
     php8.3 \
@@ -24,8 +32,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN mkdir -p /var/www/pelican
 WORKDIR /var/www/pelican
 
-# Install latest Panel release
-RUN curl -L https://github.com/pelican-dev/panel/releases/latest/download/panel.tar.gz | tar -xzv
+# Install desired Panel release
+RUN curl -L https://github.com/pelican-dev/panel/releases/${release}/download/panel.tar.gz | tar -xzv
 RUN composer install --no-dev --optimize-autoloader
 # Extra directory for database file to make mounting easier
 RUN mkdir /var/www/pelican/database/data
