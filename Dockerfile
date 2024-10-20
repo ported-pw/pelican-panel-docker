@@ -33,7 +33,7 @@ RUN mkdir -p /var/www/pelican
 WORKDIR /var/www/pelican
 
 # Install desired Panel release
-RUN curl -L https://github.com/pelican-dev/panel/releases/${release}/download/panel.tar.gz | tar -xzv
+RUN curl -L https://github.com/pelican-dev/panel/releases/tag/${release}/download/panel.tar.gz | tar -xzv
 RUN composer install --no-dev --optimize-autoloader
 # Extra directory for database file to make mounting easier
 RUN mkdir /var/www/pelican/database/data
